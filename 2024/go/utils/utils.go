@@ -38,13 +38,6 @@ func ReadFileLinesAsStringArray(filename string) []string {
 	return lines
 }
 
-func RemoveElement(slice []int, index int) []int {
-	if index < 0 || index >= len(slice) {
-		return append([]int{}, slice...)
-	}
-	return append(append([]int{}, slice[:index]...), slice[index+1:]...)
-}
-
 func Run(part int, function func() int, runCount int) int {
 	var durations []time.Duration
 	var output int
