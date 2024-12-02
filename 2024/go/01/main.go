@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"math"
 	"slices"
-	"strconv"
 	"strings"
 )
 
@@ -48,13 +47,8 @@ func readInputs() ([]int, []int, error) {
 		if len(numbers) != 2 {
 			return nil, nil, fmt.Errorf("invalid line format: %s", line)
 		}
-
-		num1, err1 := strconv.Atoi(numbers[0])
-		num2, err2 := strconv.Atoi(numbers[1])
-
-		if err1 != nil || err2 != nil {
-			return nil, nil, fmt.Errorf("invalid numbers in line: %s", line)
-		}
+		num1 := utils.ParseToInt(numbers[0])
+		num2 := utils.ParseToInt(numbers[1])
 
 		left = append(left, num1)
 		right = append(right, num2)
