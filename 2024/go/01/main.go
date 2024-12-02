@@ -1,48 +1,49 @@
 package main
 
 import (
-	mathutil "advent-of-code-2024"
-	"bufio"
+	"advent-of-code-2024/utils"
 	"fmt"
 	"math"
-	"os"
 	"slices"
 	"strconv"
 	"strings"
 )
 
-
 func main() {
-	left, right, err := readInputs()
-	if (err != nil) {
-		os.Exit(3)
-	}
-	slices.Sort(left)
-	slices.Sort(right)
-	
-	totalDiff := calculateDiff(left, right)
-	fmt.Println("Total Difference:", totalDiff)
-	
-	simScore := calcSimilarityScore(left, right)
-	fmt.Println("Total Similarity score:", simScore)
-	
+	utils.Run(1, partOne, 100)
+	utils.Run(2, partTwo, 100)
 }
 
+func partOne() int {
+	left, right, err := readInputs()
+	if err != nil {
+		panic(err)
+	}
+
+	slices.Sort(left)
+	slices.Sort(right)
+
+	return calculateDiff(left, right)
+}
+
+func partTwo() int {
+	left, right, err := readInputs()
+	if err != nil {
+		panic(err)
+	}
+
+	slices.Sort(left)
+	slices.Sort(right)
+
+	return calcSimilarityScore(left, right)
+}
 
 func readInputs() ([]int, []int, error) {
-	file, err := os.Open("01/input.txt");
-	if err != nil {
-		return nil, nil, fmt.Errorf("failed to open file: %w", err)
-	}
-	defer file.Close();
+	lines := utils.ReadFileLinesAsStringArray("input.txt")
 
 	var left, right []int
 
-	scanner := bufio.NewScanner(file)
-	
-	for scanner.Scan() {
-		line := strings.TrimSpace(scanner.Text())
-		
+	for _, line := range lines {
 		numbers := strings.Fields(line)
 		if len(numbers) != 2 {
 			return nil, nil, fmt.Errorf("invalid line format: %s", line)
@@ -50,6 +51,7 @@ func readInputs() ([]int, []int, error) {
 
 		num1, err1 := strconv.Atoi(numbers[0])
 		num2, err2 := strconv.Atoi(numbers[1])
+
 		if err1 != nil || err2 != nil {
 			return nil, nil, fmt.Errorf("invalid numbers in line: %s", line)
 		}
@@ -57,12 +59,11 @@ func readInputs() ([]int, []int, error) {
 		left = append(left, num1)
 		right = append(right, num2)
 	}
-
 	return left, right, nil
 }
 
 func calculateDiff(left []int, right []int) int {
-	count := len(left);
+	count := len(left)
 	totalDiff := 0
 
 	for i := 0; i < count; i++ {
@@ -84,7 +85,7 @@ func calcSimilarityScore(left, right []int) int {
 
 	for _, num := range left {
 		if count, exists := rightFrequency[num]; exists {
-			score := mathutil.Multiply(num, count);
+			score := num * count
 			similarityScore += score
 		}
 	}

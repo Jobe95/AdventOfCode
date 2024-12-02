@@ -1,7 +1,6 @@
 package main
 
 import (
-	mathutil "advent-of-code-2024"
 	"fmt"
 )
 
@@ -35,17 +34,6 @@ func runBasics() {
 	slice := []int{1, 2, 3, 4, 5}
     slice = append(slice, 6)
     fmt.Println(slice)
-
-	fmt.Println("Addition:", mathutil.Add(10, 5))
-	fmt.Println("Subtraction:", mathutil.Subtract(10, 5))
-	fmt.Println("Multiplication:", mathutil.Multiply(10, 5))
-	
-	quotient, err := mathutil.Divide(10, 0) // Attempt division by zero
-	if err != nil {
-		fmt.Println("Division error:", err)
-	} else {
-		fmt.Println("Division:", quotient)
-	}
 
 	for i := 0; i < 5; i++ {
 		fmt.Println(i)
