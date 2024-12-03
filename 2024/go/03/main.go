@@ -6,8 +6,8 @@ import (
 )
 
 func main() {
-	utils.Run(1, partOne, 100)
-	utils.Run(2, partTwo, 100)
+	utils.BenchmarkWithSummary("benchmark.txt", 1, partOne, 1000)
+	utils.BenchmarkWithSummary("benchmark.txt", 2, partTwo, 1000)
 }
 
 func partOne() int {
@@ -27,11 +27,6 @@ func partOne() int {
 	return output
 }
 
-type Pattern struct {
-	enabled bool
-	from    int
-}
-
 type ActiveRanges struct {
 	start int
 	end   int
@@ -45,30 +40,23 @@ func partTwo() int {
 	reActions := regexp.MustCompile(activePattern)
 
 	indexes := reActions.FindAllStringIndex(input, -1)
-	actions := []Pattern{{true, 0}}
+	activeRanges := []ActiveRanges{}
+	previousEnabled := true
+	start := 0
 	for _, idx := range indexes {
 		action := input[idx[0]:idx[1]]
-		previousEnabled := actions[len(actions)-1].enabled
+
 		if !previousEnabled && action == "do()" {
-			actions = append(actions, Pattern{true, idx[1]})
+			previousEnabled = true
+			start = idx[1]
 		} else if previousEnabled && action == "don't()" {
-			actions = append(actions, Pattern{false, idx[1]})
+			activeRanges = append(activeRanges, ActiveRanges{start, idx[0]})
+			previousEnabled = false
 		}
 	}
 
-	activeRanges := []ActiveRanges{}
-	for i := 0; i < len(actions)-1; i++ {
-		if actions[i].enabled {
-			start := actions[i].from
-			end := actions[i+1].from
-			activeRanges = append(activeRanges, ActiveRanges{start, end})
-		}
-	}
-
-	if actions[len(actions)-1].enabled {
-		lastStart := actions[len(actions)-1].from
-		lastEnd := len(input)
-		activeRanges = append(activeRanges, ActiveRanges{lastStart, lastEnd})
+	if previousEnabled {
+		activeRanges = append(activeRanges, ActiveRanges{start, len(input)})
 	}
 
 	pattern := `mul\((\d+),(\d+)\)`
