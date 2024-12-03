@@ -38,7 +38,7 @@ func ReadFileLinesAsStringArray(filename string) []string {
 	return lines
 }
 
-func Run(part int, function func() int, runCount int) int {
+func Run(part int, function func() int, runCount int) (int, time.Duration, time.Duration, int) {
 	var durations []time.Duration
 	var output int
 
@@ -53,8 +53,17 @@ func Run(part int, function func() int, runCount int) int {
 
 	green := "\033[32m"
 	reset := "\033[0m"
-	fmt.Printf("Part %d: \t%s%d%s \t(AVG: %s TOTAL: %s) | (Runs: %v)\n", part, green, output, reset, avg, total, runCount)
-	return output
+	fmt.Printf("Part %d: \t%s%d%s \tAVG: %s\n", part, green, output, reset, avg)
+	return output, avg, total, len(durations)
+}
+
+func BenchmarkWithSummary(fileName string, part int, function func() int, runCount int) {
+	_, avg, total, runs := Run(part, function, runCount)
+
+	err := writeBenchmarkSummary(fileName, part, avg, total, runs)
+	if err != nil {
+		fmt.Printf("Error writing to file: %v\n", err)
+	}
 }
 
 func calculateAverageAndTotalDuration(durations []time.Duration) (time.Duration, time.Duration) {
@@ -66,4 +75,29 @@ func calculateAverageAndTotalDuration(durations []time.Duration) (time.Duration,
 		total += d
 	}
 	return total / time.Duration(len(durations)), total
+}
+
+func writeBenchmarkSummary(fileName string, part int, avg, total time.Duration, runs int) error {
+	file, err := os.OpenFile(fileName, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	if part == 2 {
+		_, err = file.WriteString(fmt.Sprintf(
+			"Part %d - Average: %s, Total: %s, Runs: %d\n\n",
+			part, avg, total, runs,
+		))
+	} else {
+		_, err = file.WriteString(fmt.Sprintf(
+			"Part %d - Average: %s, Total: %s, Runs: %d\n",
+			part, avg, total, runs,
+		))
+	}
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

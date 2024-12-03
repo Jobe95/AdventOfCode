@@ -7,8 +7,8 @@ import (
 )
 
 func main() {
-	utils.Run(1, partOne, 100)
-	utils.Run(2, partTwo, 100)
+	utils.BenchmarkWithSummary("benchmark.txt", 1, partOne, 1000)
+	utils.BenchmarkWithSummary("benchmark.txt", 2, partTwo, 1000)
 }
 
 func partOne() int {
