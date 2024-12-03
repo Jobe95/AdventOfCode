@@ -1,0 +1,9 @@
+Part 1 - Average: 201.192µs, Total: 201.192351ms, Runs: 1000
+Part 2 - Average: 361.191µs, Total: 361.191168ms, Runs: 1000
+
+Part 1 - Average: 198.964µs, Total: 198.964751ms, Runs: 1000
+Part 2 - Average: 362.702µs, Total: 362.702696ms, Runs: 1000
+
+Part 1 - Average: 200.414µs, Total: 200.414885ms, Runs: 1000
+Part 2 - Average: 359.831µs, Total: 359.831687ms, Runs: 1000
+
