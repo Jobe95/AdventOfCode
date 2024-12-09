@@ -42,3 +42,24 @@ func MoveIndex[T comparable](slice []T, fromIndex, toIndex int) []T {
 	slice = append(slice[:toIndex], append([]T{item}, slice[toIndex:]...)...)
 	return slice
 }
+
+func LastIndex[T comparable](s []T, v T) int {
+	for i := len(s) - 1; i >= 0; i-- {
+		if s[i] == v {
+			return i
+		}
+	}
+	return -1
+}
+
+func IsSlicesEqual[T comparable](a, b []T) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+	return true
+}
