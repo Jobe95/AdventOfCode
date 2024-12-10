@@ -1,0 +1,3 @@
+Part 1 - Average: 1.908006ms, Total: 95.400334ms, Runs: 50
+Part 2 - Average: 469.728416ms, Total: 4.697284167s, Runs: 10
+
