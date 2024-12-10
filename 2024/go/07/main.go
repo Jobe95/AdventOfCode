@@ -25,18 +25,18 @@ func evalCombination(values []int, target int, currentIndex int, currentResult i
 		return currentResult, false
 	}
 
-	currentNum := values[currentIndex]
+	value := values[currentIndex]
 
 	for _, operator := range operators {
 		var result int
 
 		switch operator {
 		case Addition:
-			result = currentResult + currentNum
+			result = currentResult + value
 		case Multiplication:
-			result = currentResult * currentNum
+			result = currentResult * value
 		case Concetenation:
-			concatResult := utils.ParseToInt(fmt.Sprintf("%d%d", currentResult, currentNum))
+			concatResult := utils.ParseToInt(fmt.Sprintf("%d%d", currentResult, value))
 			result = concatResult
 		}
 		if result, match := evalCombination(values, target, currentIndex+1, result, operators); match {
