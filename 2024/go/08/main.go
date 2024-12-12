@@ -8,6 +8,9 @@ import (
 func main() {
 	utils.Run(1, partOne, 1)
 	utils.Run(2, partTwo, 1)
+
+	// utils.BenchmarkWithSummary("benchmark.txt", 1, partOne, 500)
+	// utils.BenchmarkWithSummary("benchmark.txt", 2, partTwo, 500)
 }
 
 func partOne() int {
