@@ -63,3 +63,16 @@ func IsSlicesEqual[T comparable](a, b []T) bool {
 	}
 	return true
 }
+
+func UniqueValues[T comparable](slice []T) []T {
+	seen := make(map[T]bool)
+	unique := []T{}
+
+	for _, val := range slice {
+		if !seen[val] {
+			seen[val] = true
+			unique = append(unique, val)
+		}
+	}
+	return unique
+}
