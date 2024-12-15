@@ -6,11 +6,8 @@ import (
 )
 
 func main() {
-	// utils.Run(1, partOne, 50)
-	// utils.Run(2, partTwo, 50)
-
-	utils.BenchmarkWithSummary("benchmark.txt", 1, partOne, 50)
-	utils.BenchmarkWithSummary("benchmark.txt", 2, partTwo, 50)
+	utils.Run(1, partOne, 1)
+	utils.Run(2, partTwo, 1)
 }
 
 func partOne() int {

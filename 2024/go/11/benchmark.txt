@@ -3,8 +3,3 @@ Part 2 - Average: 366.019µs, Total: 18.300998ms, Runs: 50
 
 Part 1 - Average: 18.888365ms, Total: 944.418252ms, Runs: 50
 Part 2 - Average: 369.414µs, Total: 18.470747ms, Runs: 50
-
-Part 1 - Average: 39.403546ms, Total: 1.970177328s, Runs: 50
-Part 1 - Average: 18.836709ms, Total: 941.83546ms, Runs: 50
-Part 2 - Average: 12.824899ms, Total: 641.24499ms, Runs: 50
-
