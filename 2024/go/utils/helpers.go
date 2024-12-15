@@ -76,3 +76,11 @@ func UniqueValues[T comparable](slice []T) []T {
 	}
 	return unique
 }
+
+func CreateGridFromLines(input []string) [][]rune {
+	grid := make([][]rune, len(input))
+	for i, line := range input {
+		grid[i] = []rune(line)
+	}
+	return grid
+}
