@@ -86,10 +86,6 @@ func walkPath(currentPosition Position, startPosition Position, grid [][]rune, d
 	visited[currentPosition] = true
 	currentValue := grid[currentPosition.Y][currentPosition.X]
 
-	if len(found) == 0 {
-		found[currentPosition] = []Position{}
-	}
-
 	for _, direction := range directions {
 		y, x := currentPosition.Y+direction.Delta[0], currentPosition.X+direction.Delta[1]
 
