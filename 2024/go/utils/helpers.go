@@ -31,7 +31,7 @@ func RemoveElementImmutable(slice []int, index int) []int {
 }
 
 func MoveIndex[T comparable](slice []T, fromIndex, toIndex int) []T {
-	if fromIndex < 0 || fromIndex > len(slice)-1 || toIndex < 0 || toIndex > len(slice)-1 {
+	if fromIndex < 0 || fromIndex >= len(slice) || toIndex < 0 || toIndex >= len(slice) {
 		fmt.Println("Out of bounds!!")
 		return slice
 	}
@@ -41,6 +41,19 @@ func MoveIndex[T comparable](slice []T, fromIndex, toIndex int) []T {
 
 	slice = append(slice[:toIndex], append([]T{item}, slice[toIndex:]...)...)
 	return slice
+}
+
+func MergeSlices[T comparable](originalSlice, newSlice []T, index int) []T {
+	if index < 0 || index >= len(originalSlice) {
+		panic("Index out of bounds")
+	}
+
+	before := originalSlice[:index]
+	after := originalSlice[index+1:]
+
+	merged := append(before, newSlice...)
+	merged = append(merged, after...)
+	return merged
 }
 
 func LastIndex[T comparable](s []T, v T) int {
