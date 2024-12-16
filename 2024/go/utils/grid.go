@@ -3,8 +3,7 @@ package utils
 import "fmt"
 
 type Cell[T comparable] struct {
-	Y    int
-	X    int
+	Y, X int
 	Item T
 }
 
@@ -13,9 +12,8 @@ type Grid[T comparable] struct {
 }
 
 type Direction struct {
-	Name string
-	DY   int
-	DX   int
+	Name   string
+	DY, DX int
 }
 
 var (
@@ -37,6 +35,22 @@ func CreateGridFromLines[T comparable](input []string, initializer func(y, x int
 				Y:    y,
 				X:    x,
 				Item: initializer(y, x, char),
+			}
+		}
+	}
+	return Grid[T]{Cells: cells}
+}
+
+func CreateGridFromDimensions[T comparable](rows, cols int, initializer func(y, x int) T) Grid[T] {
+	cells := make([][]Cell[T], rows)
+
+	for y := 0; y < rows; y++ {
+		cells[y] = make([]Cell[T], cols)
+		for x := 0; x < cols; x++ {
+			cells[y][x] = Cell[T]{
+				Y:    y,
+				X:    x,
+				Item: initializer(y, x),
 			}
 		}
 	}
