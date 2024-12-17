@@ -97,6 +97,15 @@ func (g Grid[T]) PrintGrid() {
 	}
 }
 
+func (g Grid[T]) PrintGridRaw() {
+	for _, row := range g.Cells {
+		for _, cell := range row {
+			fmt.Print(cell.Item)
+		}
+		fmt.Println()
+	}
+}
+
 func IsInBounds[T comparable](grid Grid[T], y, x int) bool {
 	return y >= 0 && y < len(grid.Cells) && x >= 0 && x < len(grid.Cells[y])
 }
