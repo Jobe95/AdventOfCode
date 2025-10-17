@@ -1,0 +1,36 @@
+# Binary (root level only)
+/aoc
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.sum
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Config
+.aoc-config
+
+# Node/TypeScript
+node_modules/
+dist/
+*.js
+*.js.map
+
+# Optional: Uncomment to exclude puzzle inputs
+# **/input.txt
+# **/example.txt
