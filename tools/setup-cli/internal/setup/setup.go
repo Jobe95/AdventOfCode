@@ -3,6 +3,7 @@ package setup
 import (
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 
@@ -44,6 +45,14 @@ func Execute(selections *ui.Selections) error {
 		if err := templates.GenerateLanguageFiles(lang, langDir, selections.Year, selections.Day); err != nil {
 			return err
 		}
+
+		if lang == "ts" {
+			if err := runPnpmInstall(langDir); err != nil {
+				fmt.Printf("Warning: failed to run pnpm install: %v\n", err)
+			} else {
+				fmt.Printf("✓ Dependencies installed for TypeScript\n")
+			}
+		}
 	}
 
 	fmt.Printf("\n✓ Setup complete: %d/%02d (%s)\n", selections.Year, selections.Day, strings.Join(selections.Languages, ", "))
@@ -67,4 +76,12 @@ func findProjectRoot() (string, error) {
 		}
 		dir = parent
 	}
+}
+
+func runPnpmInstall(dir string) error {
+	cmd := exec.Command("pnpm", "install")
+	cmd.Dir = dir
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	return cmd.Run()
 }
