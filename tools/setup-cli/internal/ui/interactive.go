@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
@@ -62,7 +63,7 @@ var (
 func initialModel() model {
 	return model{
 		step:     stepYear,
-		options:  generateYears(), // Initialize with years
+		options:  generateYears(),
 		selected: make(map[int]bool),
 	}
 }
@@ -133,7 +134,7 @@ func (m model) handleEnter() (tea.Model, tea.Cmd) {
 		m.year = year
 		m.step = stepDay
 		m.cursor = 0
-		m.options = generateDays()
+		m.options = generateDays(year)
 		return m, nil
 
 	case stepDay:
@@ -270,17 +271,48 @@ func (m model) renderLanguages() string {
 }
 
 func generateYears() []string {
-	// Generate years from 2015 to current year + 1
+	now := time.Now()
+	currentYear := now.Year()
+
+	// Generate years from 2015 to current year, reversed (newest first)
 	years := []string{}
-	for y := 2015; y <= 2025; y++ {
+	for y := currentYear; y >= 2015; y-- {
 		years = append(years, strconv.Itoa(y))
 	}
 	return years
 }
 
-func generateDays() []string {
+func generateDays(year int) []string {
+	now := time.Now()
+	currentYear := now.Year()
+	currentMonth := now.Month()
+	currentDay := now.Day()
+
+	// Determine max days based on year
+	maxDay := 25
+	if year >= 2025 {
+		maxDay = 12
+	}
+
+	// If it's the current year and we're in December, limit to current day
+	if year == currentYear && currentMonth == time.December {
+		if currentDay < maxDay {
+			maxDay = currentDay
+		}
+	}
+
+	// If it's a future year, don't show any days yet
+	if year > currentYear {
+		return []string{}
+	}
+
+	// If it's the current year but not December yet, don't show any days
+	if year == currentYear && currentMonth < time.December {
+		return []string{}
+	}
+
 	days := []string{}
-	for d := 1; d <= 25; d++ {
+	for d := 1; d <= maxDay; d++ {
 		days = append(days, strconv.Itoa(d))
 	}
 	return days

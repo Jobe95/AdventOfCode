@@ -27,7 +27,7 @@ import (
 )
 
 func readInput(filename string) string {
-	data, err := os.ReadFile(filepath.Join(".", filename))
+	data, err := os.ReadFile(filepath.Join("..", filename))
 	if err != nil {
 		panic(err)
 	}
@@ -60,7 +60,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const readInput = (filename: string): string => {
-  return readFileSync(join(__dirname, filename), 'utf-8').trim();
+  return readFileSync(join(__dirname, '..', filename), 'utf-8').trim();
 };
 
 const partOne = (input: string): number => {
