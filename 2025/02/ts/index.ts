@@ -11,10 +11,6 @@ const readInput = (filename: string): string => {
 
 const isInvalidIdPartOne = (id: number) => {
   const str = id.toString();
-
-  if (str.length % 2 !== 0) {
-    return false;
-  }
   const half = str.length / 2;
   return str.slice(0, half) === str.slice(half);
 };
@@ -24,6 +20,7 @@ const isInvalidIdPartTwo = (id: number) => {
   const len = str.length;
 
   for (let i = 1; i < len; i++) {
+    if (len % i !== 0) continue;
     const pattern = str.slice(0, i);
     const repeated = pattern.repeat(len / i);
 
