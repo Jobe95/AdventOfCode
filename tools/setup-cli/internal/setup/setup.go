@@ -72,6 +72,14 @@ func Execute(selections *ui.Selections) error {
 		return err
 	}
 
+	// Get current working directory for relative path calculation
+	cwd, err := os.Getwd()
+	if err != nil {
+		return fmt.Errorf("failed to get current directory: %w", err)
+	}
+
+	var createdPaths []string
+
 	// Create language-specific directories and files
 	for _, lang := range selections.Languages {
 		langDir := filepath.Join(dayDir, lang)
@@ -84,6 +92,13 @@ func Execute(selections *ui.Selections) error {
 			return err
 		}
 
+		// Calculate relative path from current directory
+		relPath, err := filepath.Rel(cwd, langDir)
+		if err != nil {
+			relPath = langDir // Fallback to absolute path
+		}
+		createdPaths = append(createdPaths, relPath)
+
 		if lang == "ts" {
 			if err := runPnpmInstall(langDir); err != nil {
 				fmt.Printf("Warning: failed to run pnpm install: %v\n", err)
@@ -94,6 +109,10 @@ func Execute(selections *ui.Selections) error {
 	}
 
 	fmt.Printf("\n✓ Setup complete: %d/%02d (%s)\n", selections.Year, selections.Day, strings.Join(selections.Languages, ", "))
+	fmt.Println("\nCreated directories:")
+	for _, p := range createdPaths {
+		fmt.Printf("  cd %s\n", p)
+	}
 	return nil
 }
 
