@@ -108,6 +108,9 @@ main();
     "build": "tsc",
     "dev": "tsx watch index.ts"
   },
+  "dependencies": {
+    "@aoc/ts": "link:../../../lib/ts"
+  },
   "devDependencies": {
     "@types/node": "^22.10.2",
     "tsx": "^4.19.2",

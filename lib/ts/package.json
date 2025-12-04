@@ -1,0 +1,19 @@
+{
+  "name": "@aoc/ts",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./array": "./array.ts",
+    "./grid": "./grid.ts",
+    "./math": "./math.ts",
+    "./parse": "./parse.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}
