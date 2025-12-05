@@ -105,6 +105,14 @@ const rangeInclusive = (start: number, end: number, step = 1): number[] => {
   return result;
 };
 
+const inRange = (value: number, start: number, end: number) => {
+  return value >= start && value < end;
+};
+
+const inRangeInclusive = (value: number, start: number, end: number) => {
+  return value >= start && value <= end;
+};
+
 export const MathHelpers = {
   gcd,
   lcm,
@@ -124,4 +132,6 @@ export const MathHelpers = {
   inBounds,
   range,
   rangeInclusive,
+  inRange,
+  inRangeInclusive,
 };
