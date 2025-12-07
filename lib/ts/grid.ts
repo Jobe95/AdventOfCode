@@ -131,10 +131,6 @@ const logGrid = <T>(grid: Grid<T>, options: GridLoggerOptions = {}): void => {
         return `${color}${paddedCell}${COLORS.reset}`;
       }
 
-      if (cellStr === "@") return `${COLORS.green}${paddedCell}${COLORS.reset}`;
-      if (cellStr === "x") return `${COLORS.red}${paddedCell}${COLORS.reset}`;
-      if (cellStr === ".") return `${COLORS.dim}${paddedCell}${COLORS.reset}`;
-
       return paddedCell;
     });
 
