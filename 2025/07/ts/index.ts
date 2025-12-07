@@ -105,9 +105,9 @@ const partTwo = (input: string): number => {
     return 0;
   };
 
-  const result = countTimelines(GridHelpers.move(startCoord, "down"));
+  sum = countTimelines(GridHelpers.move(startCoord, "down"));
 
-  return result;
+  return sum;
 };
 
 const main = () => {
