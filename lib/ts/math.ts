@@ -1,4 +1,4 @@
-export type Point = { x: number; y: number };
+export type Point = { x: number; y: number; z?: number };
 
 const gcd = (a: number, b: number): number => {
   a = Math.abs(a);
@@ -52,6 +52,9 @@ const manhattanDistance = (a: Point, b: Point): number => {
 };
 
 const euclideanDistance = (a: Point, b: Point): number => {
+  if (a.z && b.z) {
+    return Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2 + (a.z - b.z) ** 2);
+  }
   return Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);
 };
 
