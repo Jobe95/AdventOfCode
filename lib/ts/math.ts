@@ -52,10 +52,10 @@ const manhattanDistance = (a: Point, b: Point): number => {
 };
 
 const euclideanDistance = (a: Point, b: Point): number => {
-  if (a.z && b.z) {
-    return Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2 + (a.z - b.z) ** 2);
-  }
-  return Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);
+  const dx = a.x - b.x;
+  const dy = a.y - b.y;
+  const dz = (a.z ?? 0) - (b.z ?? 0);
+  return Math.sqrt(dx ** 2 + dy ** 2 + dz ** 2);
 };
 
 const addPoints = (a: Point, b: Point): Point => {
